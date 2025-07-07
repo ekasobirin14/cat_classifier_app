@@ -40,7 +40,8 @@ android {
                 "proguard-rules.pro"
             )
         }
-    }
+    }git init
+
 
 }
 

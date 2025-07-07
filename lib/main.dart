@@ -17,8 +17,17 @@ class CatClassifierApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Cat Classifier',
-      theme: ThemeData(primarySwatch: Colors.deepPurple),
+      title: 'CAT CLASSIFIER',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        scaffoldBackgroundColor: const Color(0xFFFDF6EC), // creamy background
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
+        textTheme: const TextTheme(
+          bodyLarge: TextStyle(fontFamily: 'Comic Sans', fontSize: 16),
+          bodyMedium: TextStyle(fontFamily: 'Comic Sans', fontSize: 14),
+        ),
+      ),
       home: const CatClassifierHomePage(),
     );
   }
@@ -134,7 +143,7 @@ class _CatClassifierHomePageState extends State<CatClassifierHomePage> {
 
     setState(() {
       _result =
-          '${_labels[topLabelIndex]} (${(maxProb * 100).toStringAsFixed(2)}%)';
+          '${_labels[topLabelIndex]} 🐾 (${(maxProb * 100).toStringAsFixed(2)}%)';
       _isLoading = false;
     });
   }
@@ -149,39 +158,83 @@ class _CatClassifierHomePageState extends State<CatClassifierHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Cat Breed Classifier'),
+        backgroundColor: const Color(0xFFDABFFF),
+        foregroundColor: Colors.black,
+        title: const Text(
+          '🐱 Cat Breed Classifier',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         centerTitle: true,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(20),
         child: Column(
           children: [
-            if (_imageFile != null)
-              Image.file(_imageFile!, height: 250)
-            else
-              Container(
-                height: 250,
-                color: Colors.grey[200],
-                child: const Center(child: Text('No image selected')),
+            Container(
+              height: 250,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(color: Colors.deepPurple.shade100),
               ),
-            const SizedBox(height: 16),
-            ElevatedButton.icon(
-              onPressed: _pickImage,
-              icon: const Icon(Icons.image),
-              label: const Text('Pick from Gallery'),
+              child:
+                  _imageFile != null
+                      ? ClipRRect(
+                        borderRadius: BorderRadius.circular(16),
+                        child: Image.file(_imageFile!, fit: BoxFit.cover),
+                      )
+                      : const Center(child: Text('No image selected 🐾')),
             ),
-            const SizedBox(height: 8),
-            ElevatedButton.icon(
-              onPressed: _takePhoto,
-              icon: const Icon(Icons.camera_alt),
-              label: const Text('Take Photo'),
+            const SizedBox(height: 24),
+            Wrap(
+              spacing: 12,
+              runSpacing: 8,
+              children: [
+                ElevatedButton.icon(
+                  onPressed: _pickImage,
+                  icon: const Icon(Icons.image),
+                  label: const Text('From Gallery'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.deepPurple[100],
+                    foregroundColor: Colors.black,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 20,
+                      vertical: 12,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                ),
+                ElevatedButton.icon(
+                  onPressed: _takePhoto,
+                  icon: const Icon(Icons.camera_alt),
+                  label: const Text('Take Photo'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.pink[100],
+                    foregroundColor: Colors.black,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 20,
+                      vertical: 12,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                ),
+              ],
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 24),
             _isLoading
                 ? const CircularProgressIndicator()
                 : Text(
-                  _result.isEmpty ? 'Prediction will appear here' : _result,
-                  style: const TextStyle(fontSize: 18),
+                  _result.isEmpty
+                      ? 'Let\'s see what breed this cat is 🐱'
+                      : _result,
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
                   textAlign: TextAlign.center,
                 ),
           ],
