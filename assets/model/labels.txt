@@ -2,11 +2,11 @@ Abyssinian
 Bengal
 Birman
 Bombay
-British_Shorthair
-Egyptian_Mau
-Maine_Coon
+British Shorthair
+Egyptian Mau
+Maine Coon
 Persian
 Ragdoll
-Russian_Blue
+Russian Blue
 Siamese
 Sphynx
